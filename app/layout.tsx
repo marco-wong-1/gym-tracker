@@ -4,18 +4,18 @@ import { Nav } from './components/Nav';
 import { AuthContextProvider } from '@/context/AuthContext';
 
 export default function RootLayout({
-	children,
+  children,
 }: {
-	children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-	return (
-		<html lang='en'>
-			<body>
-				<AuthContextProvider>
-					<Nav />
-					{children}
-				</AuthContextProvider>
-			</body>
-		</html>
-	);
+  return (
+    <html lang='en' className='w-full h-full'>
+      <body>
+        <AuthContextProvider>
+          <Nav />
+          {children}
+        </AuthContextProvider>
+      </body>
+    </html>
+  );
 }

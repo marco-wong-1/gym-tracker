@@ -1,41 +1,42 @@
 'use client';
-import React from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  ReactNode,
+} from 'react';
 import { onAuthStateChanged, getAuth, User } from 'firebase/auth';
 import firebase_app from '@/firebase/firebase';
 import { useRouter } from 'next/navigation';
+import { Loading } from '@/app/components/Loading';
 
 const auth = getAuth(firebase_app);
 
-export const AuthContext = React.createContext<User | null>(null);
+export const AuthContext = createContext<User | null>(null);
 
-export const useAuthContext = () => React.useContext(AuthContext);
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-export const AuthContextProvider = ({
-	children,
-}: {
-	children: React.ReactNode;
-}) => {
-	const [user, setUser] = React.useState<User | null>(null);
-	const [loading, setLoading] = React.useState(true);
-	const router = useRouter();
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        setUser(user);
+      } else {
+        setUser(null);
+        router.push('/not-authenticated');
+      }
+      setLoading(false);
+    });
 
-	React.useEffect(() => {
-		const unsubscribe = onAuthStateChanged(auth, user => {
-			if (user) {
-				setUser(user);
-			} else {
-				router.push('/not-authenticated');
-			}
-			setLoading(false);
-			console.log(user);
-		});
+    return () => unsubscribe();
+  }, [router, user]);
 
-		return () => unsubscribe();
-	}, []);
-
-	return (
-		<AuthContext.Provider value={{ user }}>
-			{loading ? <div>Loading...</div> : children}
-		</AuthContext.Provider>
-	);
+  return (
+    <AuthContext.Provider value={user}>
+      {loading ? <Loading /> : children}
+    </AuthContext.Provider>
+  );
 };
