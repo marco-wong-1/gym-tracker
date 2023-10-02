@@ -1,38 +1,51 @@
+import { AuthContext } from '@/context/AuthContext';
+import { getUserDoc } from '@/firebase/firestoreDB';
+import { useRouter } from 'next/navigation';
+import { useContext, useEffect, useState } from 'react';
+
+interface WorkoutFields {
+  reps: number;
+  weight: number;
+}
+
 export const WorkoutHistory = () => {
-	return (
-		<div className='flex justify-center'>
-			<div className='w-full xl:w-8/12 px-4'>
-				<div className='flex flex-col min-w-0 break-words w-full mb-8 shadow-lg rounded-lg bg-indigo-800'>
-					<div className='rounded-t mb-0 px-4 py-3 bg-transparent'>
-						<div className='flex flex-wrap items-center'>
-							<div className='w-full max-w-full flex-grow flex-1'>
-								<h6 className='uppercase mb-1 text-xs font-semibold text-white'>
-									Overview
-								</h6>
-								<h2 className='text-xl font-semibold text-white'>
-									Past Workouts
-								</h2>
-							</div>
-						</div>
-					</div>
-					<div className='p-4 flex-auto'>
-						<div className='relative h-350-px'>
-							{/* <canvas
-							width='496'
-							height='291'
-							className='
-										display: block;
-										box-sizing: border-box;
-										height: 350px;
-										width: 595.5px;
-									'
-							id='line-chart'
-						></canvas> */}
-							workouts lists
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+  const userCtx = useContext(AuthContext);
+  const router = useRouter();
+
+  const [workouts, setWorkouts] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchWorkouts = async () => {
+      const querySnapshot = await getUserDoc(userCtx, 'routine');
+      const docs = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setWorkouts(docs);
+    };
+    userCtx && fetchWorkouts();
+  }, [userCtx]);
+
+  const handleClick = (workoutId: string) => {
+    console.log(workoutId);
+    router.push(`workout/${workoutId}`);
+  };
+
+  return (
+    <div className='w-full'>
+      {workouts.length > 0 ? (
+        workouts.map((workout, index) => (
+          <div
+            className='rounded-md px-3 cursor-pointer hocus:bg-white hocus:text-indigo-600'
+            key={index}
+            onClick={() => handleClick(workout.id)}
+          >
+            <span>{workout.workoutName}</span>
+          </div>
+        ))
+      ) : (
+        <div className='w-full'>No workouts yet</div>
+      )}
+    </div>
+  );
 };
