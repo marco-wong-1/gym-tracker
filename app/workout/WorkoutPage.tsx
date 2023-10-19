@@ -19,15 +19,15 @@ export const WorkoutPage = ({ workoutFormFields }: WorkoutPageProps) => {
                 (repsAndWeights: RepsAndWeights, rIndex: number) => (
                   <div key={rIndex}>
                     <span className='font-bold uppercase tracking-wide text-xs text-gray-400 sm:px-3'>
-                      set {rIndex + 1}
+                      set {rIndex + 1}{' '}
                     </span>
                     {repsAndWeights.weight > 0 && (
                       <>
                         <span className='tracking-wide text-sm'>
-                          {repsAndWeights.weight} lbs
+                          {repsAndWeights.weight}
                         </span>
                         <span className='tracking-wide text-xs text-gray-400 sm:px-3'>
-                          for
+                          {' '}lbs for{' '}
                         </span>
                       </>
                     )}

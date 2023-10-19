@@ -30,6 +30,7 @@ export const WorkoutForm = () => {
     index: number,
     rIndex: number
   ) => {
+    console.log(event, event.target.value,event.target.name, index, rIndex);
     let oldFields = [...formFields];
     oldFields[index].repsAndWeights[rIndex][
       event.target.name as keyof RepsAndWeights

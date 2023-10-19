@@ -19,7 +19,7 @@ export const NameField = ({
         </label>
         <input
           type='text'
-          className='peer block w-4/5 px-1 border-b invalid:[&:not(:focus)]:border-red-600 invalid:[&:not(:focus)]:dark:border-red-500 bg-transparent outline-none focus:bg-transparent dark:autofill:shadow-[inset_0_0_0px_1000px_rgba(0,0,0,0)] autofill:shadow-[inset_0_0_0px_1000px_rgba(0,0,0,0)]'
+          className='rounded-none peer block w-4/5 px-1 border-b invalid:[&:not(:focus)]:border-red-600 invalid:[&:not(:focus)]:dark:border-red-500 bg-transparent outline-none focus:bg-transparent dark:autofill:shadow-[inset_0_0_0px_1000px_rgba(0,0,0,0)] autofill:shadow-[inset_0_0_0px_1000px_rgba(0,0,0,0)]'
           id={htmlFor}
           placeholder={fieldValue || fieldName || htmlFor}
           onChange={handleChange}

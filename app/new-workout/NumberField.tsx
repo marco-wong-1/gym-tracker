@@ -26,9 +26,9 @@ export const NumberField = ({
           id={`htmlFor`}
           type='number'
           min='0'
-          name='reps'
+          name={fieldName}
           onChange={handleChange}
-          placeholder={placeHolderText || fieldValue || fieldName || htmlFor}
+          placeholder={placeHolderText || fieldName || htmlFor}
           required
         />
         <span className='select-none text-gray-500 my-auto px-1 sm:text-sm font-bold'>

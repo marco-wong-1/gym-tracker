@@ -33,9 +33,9 @@ export const SetFields = ({
         </div>
         <div className='basis-1/2 flex flex-row'>
           <NumberField
-            fieldName='weights'
+            fieldName='weight'
             fieldValue=''
-            htmlFor={`${exerciseIndex}-set${setIndex + 1}-weights`}
+            htmlFor={`${exerciseIndex}-set${setIndex + 1}-weight`}
             handleChange={e => handleChange(e, exerciseIndex, setIndex)}
             placeHolderText='number'
             units='lbs'
