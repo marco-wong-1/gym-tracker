@@ -1,13 +1,20 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { WorkoutHistory } from './WorkoutHistory';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
 export const Dashboard = () => {
+  const userCtx = useContext(AuthContext);
   const router = useRouter();
+
+  useEffect(() => {
+    if (userCtx == null) router.push('/not-authenticated');
+  }, [userCtx, router]);
 
   return (
     <div className='justify-center'>
-      <div className='w-full xl:w-8/12 px-4'>
+      <div className='w-full xl:w-8/12 px-4 mx-auto'>
         <div className='min-w-0 break-words w-full mb-8 shadow-lg rounded-lg bg-indigo-800'>
           <div className='mb-0 px-4 py-3 bg-transparent'>
             <div className='flex w-full'>

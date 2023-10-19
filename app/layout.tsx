@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import './globals.css';
 import { Nav } from './components/Nav';
 import { AuthContextProvider } from '@/context/AuthContext';
+import { WorkoutContextProvider } from '@/context/WorkoutContext';
 
 export default function RootLayout({
   children,
@@ -12,8 +12,10 @@ export default function RootLayout({
     <html lang='en' className='w-full h-full'>
       <body>
         <AuthContextProvider>
-          <Nav />
-          {children}
+          <WorkoutContextProvider>
+            <Nav />
+            {children}
+          </WorkoutContextProvider>
         </AuthContextProvider>
       </body>
     </html>
