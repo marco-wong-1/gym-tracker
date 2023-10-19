@@ -29,23 +29,6 @@ export const setUserDoc = async (
     workout: data,
     date: new Date(),
   });
-  // await addDoc(collection(db, document), `${userCtx?.uid}`), {
-  // 	// exercise: data,
-  // 	createdAt: serverTimestamp(),
-  // 	...data,
-  // 	// updatedAt: serverTimestamp(),
-  // });
-  // await setDoc(doc(db, document, `${userCtx?.uid}`), {
-  // 	// exercise: data,
-  // 	createdAt: serverTimestamp(),
-  // 	...data,
-  // 	// updatedAt: serverTimestamp(),
-  // });
-  // document:
-  // [{
-  //   Reps: 10,
-  //   weights: 10,
-  // },]
 };
 
 export const getUserDoc = async (userCtx: User) => {
