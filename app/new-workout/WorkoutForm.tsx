@@ -30,7 +30,6 @@ export const WorkoutForm = () => {
     index: number,
     rIndex: number
   ) => {
-    console.log(event, event.target.value,event.target.name, index, rIndex);
     let oldFields = [...formFields];
     oldFields[index].repsAndWeights[rIndex][
       event.target.name as keyof RepsAndWeights
@@ -70,13 +69,9 @@ export const WorkoutForm = () => {
       // stripZeros.length > 0 &&
       // checkZeros
     ) {
-      // console.log(formFields);
-      // console.log({
-      //   ...formFields,
-      //   date: new Date(),
-      // });
       setUserDoc(userCtx, workoutName, formFields);
       router.push('/');
+      // TODO: GET NEW WORKOUT
     }
   };
 

@@ -1,6 +1,6 @@
 'use client';
 import { AuthContext } from '@/context/AuthContext';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import { UserMenu } from './UserMenu';
 

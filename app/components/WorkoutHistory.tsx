@@ -1,18 +1,12 @@
-import { AuthContext } from '@/context/AuthContext';
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { useRouter } from 'next/navigation';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 export const WorkoutHistory = () => {
-  const userCtx = useContext(AuthContext);
   const workoutCtx = useContext(WorkoutContext);
   const router = useRouter();
 
-  const [workoutKeys, setWorkoutKeys] = useState<string[]>([]);
-
-  useEffect(() => {
-    workoutCtx && setWorkoutKeys(Object.keys(workoutCtx));
-  }, [userCtx, workoutCtx]);
+  const workoutKeys = Object.keys(workoutCtx);
 
   const handleClick = async (workoutId: string) => {
     router.push(`/workout/${workoutId}`);
@@ -29,7 +23,9 @@ export const WorkoutHistory = () => {
           >
             <div className='flex justify-between'>
               <span className=''>{workoutCtx[woId].workoutName}</span>
-              <span className='font-light'>{workoutCtx[woId].date.toDateString()}</span>
+              <span className='font-light'>
+                {workoutCtx[woId].date.toDateString()}
+              </span>
             </div>
           </div>
         ))
