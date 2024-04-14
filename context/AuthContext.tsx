@@ -1,14 +1,8 @@
 'use client';
-import React, {
-  createContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from 'react';
+import React, { createContext, useEffect, useState, ReactNode } from 'react';
 import { onAuthStateChanged, getAuth, User } from 'firebase/auth';
 import firebase_app from '@/firebase/firebase';
 import { useRouter } from 'next/navigation';
-import { Loading } from '@/app/components/Loading';
 
 const auth = getAuth(firebase_app);
 
@@ -33,9 +27,5 @@ export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     return () => unsubscribe();
   }, [router, user]);
 
-  return (
-    <AuthContext.Provider value={user}>
-      {loading ? <Loading /> : children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };

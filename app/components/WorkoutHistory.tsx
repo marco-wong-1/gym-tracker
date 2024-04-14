@@ -1,12 +1,16 @@
 import { WorkoutContext } from '@/context/WorkoutContext';
 import { useRouter } from 'next/navigation';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export const WorkoutHistory = () => {
   const workoutCtx = useContext(WorkoutContext);
   const router = useRouter();
 
-  const workoutKeys = Object.keys(workoutCtx);
+  const [workoutKeys, setWorkoutKeys] = useState<string[]>([]);
+
+  useEffect(() => {
+    workoutCtx && setWorkoutKeys(Object.keys(workoutCtx));
+  }, [workoutCtx]);
 
   const handleClick = async (workoutId: string) => {
     router.push(`/workout/${workoutId}`);

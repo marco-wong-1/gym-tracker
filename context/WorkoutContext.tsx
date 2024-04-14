@@ -21,27 +21,27 @@ export const WorkoutContextProvider = ({
 }) => {
   const userCtx = useContext(AuthContext);
   const [workouts, setWorkouts] = useState<WorkoutFormFieldsWithIDs>(null);
-  const fetchWorkouts = useCallback(async () => {
-    const docsSnap = await getUserDoc(userCtx);
-    const docs = docsSnap.reduce(
-      (acc, cur) => ({
-        ...acc,
-        [cur.id]: {
-          date: new Date(cur.data().date.seconds * 1000),
-          workoutName: cur.data().workoutName,
-          exerciseFields: cur.data().workout,
-        },
-      }),
-      {}
-    );
-    setWorkouts(docs);
-  }, [userCtx]);
   useEffect(() => {
+    const fetchWorkouts = async () => {
+      const docsSnap = await getUserDoc(userCtx);
+      const docs = docsSnap.reduce(
+        (acc, cur) => ({
+          ...acc,
+          [cur.id]: {
+            date: new Date(cur.data().date.seconds * 1000),
+            workoutName: cur.data().workoutName,
+            exerciseFields: cur.data().workout,
+          },
+        }),
+        {}
+      );
+      setWorkouts(docs);
+    };
     userCtx && fetchWorkouts();
-  }, [fetchWorkouts, userCtx]);
+  }, [userCtx]);
   return (
     <WorkoutContext.Provider value={workouts}>
-      {!workouts ? <Loading /> : children}
+      {children}
     </WorkoutContext.Provider>
   );
 };

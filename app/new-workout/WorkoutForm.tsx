@@ -144,7 +144,7 @@ export const WorkoutForm = () => {
                     height='24'
                     viewBox='0 0 24 24'
                     fill='none'
-                    stroke-linecap='round'
+                    strokeLinecap='round'
                     stroke-linejoin='round'
                     className='plus-icon fill-none'
                   >

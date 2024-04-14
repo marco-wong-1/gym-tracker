@@ -20,7 +20,7 @@ function Page() {
 
 		// else successful
 		console.log(result);
-		return router.push('/');
+		router.push('/');
 	};
 	return AuthForm(
 		'Sign in',

@@ -1,16 +1,15 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { WorkoutHistory } from './WorkoutHistory';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '@/context/AuthContext';
+import { Loading } from './Loading';
 
 export const Dashboard = () => {
   const userCtx = useContext(AuthContext);
   const router = useRouter();
 
-  if (userCtx == null) {
-    router.push('/not-authenticated');
-  }
+  if (!userCtx) return <Loading />;
 
   return (
     <div className='justify-center'>
